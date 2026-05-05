@@ -1,0 +1,29 @@
+<div class="converter-card">
+  <h2>Currency Converter</h2>
+
+  <div class="input-group">
+    <label for="amount">Importo (EUR):</label>
+    <input 
+      id="amount"
+      type="number" 
+      [value]="amount()" 
+      (input)="onAmountChange($event)"
+    />
+  </div>
+
+  <div class="input-group">
+    <label for="currency">Converti in:</label>
+    <select id="currency" [value]="selectedCurrency()" (change)="onCurrencyChange($event)">
+      @for (symbol of currencies(); track symbol) {
+        <option [value]="symbol">{{ symbol }}</option>
+      }
+    </select>
+  </div>
+
+  <hr />
+
+  <div class="result">
+    <p>Risultato stimato:</p>
+    <strong>{{ convertedAmount() | currency:selectedCurrency() }}</strong>
+  </div>
+</div>
