@@ -1,0 +1,102 @@
+<div class="ticker-widget">
+
+  <!-- Header -->
+  <header class="ticker-header">
+    <h2>Investment Ticker</h2>
+    @if (viewModel().length > 0) {
+      <time class="last-update">
+        Aggiornato: {{ viewModel()[0].ts | date:'HH:mm:ss' }}
+      </time>
+    }
+  </header>
+
+  <!-- Controls -->
+  <div class="controls">
+    <input
+      type="text"
+      placeholder="Filtra per simbolo…"
+      [value]="filter()"
+      (input)="setFilter($any($event.target).value)"
+      class="filter-input"
+    />
+
+    <div class="sort-buttons">
+      <button
+        [class.active]="sortBy() === 'symbol'"
+        (click)="setSortBy('symbol')">
+        Simbolo
+      </button>
+      <button
+        [class.active]="sortBy() === 'price'"
+        (click)="setSortBy('price')">
+        Prezzo
+      </button>
+      <button
+        [class.active]="sortBy() === 'delta'"
+        (click)="setSortBy('delta')">
+        Delta
+      </button>
+    </div>
+  </div>
+
+
+  <!-- Dashboard Portfolio Summary -->
+<div class="portfolio-summary">
+  
+  <div class="summary-card">
+    <span class="label">Valore Totale</span>
+    <span class="value">{{ totalValue() | number:'1.2-2' }} €</span>
+  </div>
+
+  <div class="summary-card">
+    <span class="label">Stato Titoli</span>
+    <div class="stats">
+      <span class="gain">↑ {{ stats().gain }}</span>
+      <span class="loss">↓ {{ stats().loss }}</span>
+    </div>
+  </div>
+
+  @if (topMover(); as top) {
+    <div class="summary-card highlight">
+      <span class="label">Migliore/Peggiore (Δ)</span>
+      <span class="value" [class.positive]="top.delta > 0" [class.negative]="top.delta < 0">
+        {{ top.symbol }} ({{ top.delta > 0 ? '+' : '' }}{{ top.delta | number:'1.2-2' }})
+      </span>
+    </div>
+  }
+</div>
+  <!-- Table -->
+  <table class="ticker-table">
+    <thead>
+      <tr>
+        <th>Simbolo</th>
+        <th>Prezzo (€)</th>
+        <th>Δ</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (row of viewModel(); track row.symbol) {
+        <tr
+          [class.positive]="row.delta > 0"
+          [class.negative]="row.delta < 0"
+          [class.neutral]="row.delta === 0">
+          <td class="symbol">{{ row.symbol }}</td>
+          <td class="price">{{ row.price | number:'1.2-2' }}</td>
+          <td class="delta">
+            {{ row.delta > 0 ? '+' : '' }}{{ row.delta | number:'1.4-4' }}
+          </td>
+          <td class="ts">{{ row.ts | date:'HH:mm:ss.SSS' }}</td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="4" class="empty-state">
+            Nessun risultato per il filtro inserito.
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+
+</div>

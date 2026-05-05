@@ -1,0 +1,211 @@
+// ─── Widget shell ────────────────────────────────────────────────────────────
+.ticker-widget {
+  background:    #1a1a2e;
+  color:         #e0e0e0;
+  border-radius: 12px;
+  padding:       1.75rem;
+  max-width:     760px;
+  margin:        0 auto;
+  box-shadow:    0 8px 40px rgba(0, 0, 0, 0.5);
+  font-family:   'Courier New', 'Lucida Console', monospace;
+}
+
+// ─── Header ──────────────────────────────────────────────────────────────────
+.ticker-header {
+  display:         flex;
+  justify-content: space-between;
+  align-items:     center;
+  margin-bottom:   1.25rem;
+  padding-bottom:  0.75rem;
+  border-bottom:   1px solid #2d2d5e;
+
+  h2 {
+    margin:         0;
+    font-size:      1.35rem;
+    color:          #7eb8f7;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .last-update {
+    font-size: 0.78rem;
+    color:     #555;
+  }
+}
+
+// ─── Controls ────────────────────────────────────────────────────────────────
+.controls {
+  display:       flex;
+  gap:           0.75rem;
+  align-items:   center;
+  margin-bottom: 1rem;
+  flex-wrap:     wrap;
+
+  .filter-input {
+    background:  #0f0f23;
+    border:      1px solid #3d3d7a;
+    color:       #e0e0e0;
+    padding:     0.45rem 0.85rem;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size:   0.88rem;
+    flex:        1;
+    min-width:   150px;
+    outline:     none;
+    transition:  border-color 0.2s;
+
+    &::placeholder { color: #444; }
+    &:focus { border-color: #7eb8f7; }
+  }
+
+  .sort-buttons {
+    display: flex;
+    gap:     0.35rem;
+
+    button {
+      background:    #0f0f23;
+      border:        1px solid #3d3d7a;
+      color:         #888;
+      padding:       0.35rem 0.7rem;
+      border-radius: 6px;
+      cursor:        pointer;
+      font-family:   inherit;
+      font-size:     0.78rem;
+      transition:    all 0.18s;
+
+      &:hover { border-color: #7eb8f7; color: #ddd; }
+      &.active {
+        background:   #2d2d5e;
+        border-color: #7eb8f7;
+        color:        #7eb8f7;
+        font-weight:  bold;
+      }
+    }
+  }
+}
+
+// ─── Table ───────────────────────────────────────────────────────────────────
+.ticker-table {
+  width:           100%;
+  border-collapse: collapse;
+
+  thead tr {
+    border-bottom: 2px solid #2d2d5e;
+
+    th {
+      text-align:     left;
+      padding:        0.45rem 0.65rem;
+      color:          #7eb8f7;
+      font-size:      0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+  }
+
+  tbody tr {
+    border-bottom: 1px solid #1c1c3c;
+    transition:    background 0.12s;
+
+    &:hover    { background: #1e1e3f; }
+    &.positive { .delta { color: #66bb6a; } }
+    &.negative { .delta { color: #ef5350; } }
+    &.neutral  { .delta { color: #888; } }
+
+    td {
+      padding:   0.55rem 0.65rem;
+      font-size: 0.88rem;
+    }
+
+    .symbol {
+      font-weight:    700;
+      color:          #fff;
+      letter-spacing: 1px;
+    }
+
+    .price {
+      color: #ffd54f;
+    }
+
+    .ts {
+      color:     #555;
+      font-size: 0.75rem;
+    }
+  }
+
+  .empty-state {
+    text-align:  center;
+    color:       #444;
+    padding:     2.5rem;
+    font-style:  italic;
+    font-family: 'Segoe UI', sans-serif;
+  }
+}
+
+// ─── Bug badges ──────────────────────────────────────────────────────────────
+.ticker-footer {
+  margin-top:    1.5rem;
+  padding-top:   0.75rem;
+  border-top:    1px solid #2d2d5e;
+  display:       flex;
+  gap:           0.5rem;
+  flex-wrap:     wrap;
+
+  .badge {
+    font-size:     0.68rem;
+    padding:       0.2rem 0.65rem;
+    border-radius: 20px;
+    border:        1px solid;
+    font-family:   'Segoe UI', sans-serif;
+    letter-spacing: 0.5px;
+
+    &.bug1 { border-color: #ef5350; color: #ef5350; }
+    &.bug2 { border-color: #ffa726; color: #ffa726; }
+    &.bug3 { border-color: #ffee58; color: #ffee58; }
+  }
+}
+
+
+.portfolio-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
+
+  .summary-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .label {
+      font-size: 0.75rem;
+      color: #6c757d;
+      text-transform: uppercase;
+      margin-bottom: 0.25rem;
+    }
+
+    .value {
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    .stats {
+      font-weight: bold;
+      .gain { color: #28a745; margin-right: 10px; }
+      .loss { color: #dc3545; }
+    }
+  }
+
+  .highlight {
+    border-left: 2px solid #007bff;
+    background: #e7f1ff;
+    border-radius: 0 8px 8px 0;
+  }
+}
+
+// Assicurati di avere queste classi per i colori del top mover
+.positive { color: #28a745; }
+.negative { color: #dc3545; }
